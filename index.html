@@ -1,2 +1,289 @@
-<h1>안녕하세요!</h1>
-<p>제 첫 깃허브 홈페이지입니다.</p>
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나라앵글선반</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">나라앵글선반</div>
+        <ul class="nav-links">
+            <li><a href="#home">홈</a></li>
+            <li><a href="#about">소개</a></li>
+            <li><a href="#projects">프로젝트</a></li>
+            <li><a href="#estimate">견적서 작성</a></li>
+            <li><a href="#tracking">배송 조회</a></li>
+            <li><a href="#calculator">계산기</a></li>
+            <li><a href="#contact">연락처</a></li>
+            <li>
+                <div id="g_id_signin"></div>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <span class="greeting">안녕하세요, 저는</span>
+            <h1 class="name">크리에이티브<br>디벨로퍼입니다</h1>
+            <p class="tagline">의미 있는 디지털 경험을 만듭니다.</p>
+            <a href="#projects" class="cta-button">작업 보기</a>
+        </div>
+        <div class="hero-visual">
+            <div class="glow-circle"></div>
+        </div>
+    </header>
+
+    <div class="banner-section">
+        <img src="taegeukgi.png" alt="Republic of Korea Taegeukgi" class="taegeukgi-banner">
+    </div>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">소개</h2>
+            <div class="about-content">
+                <p>저는 모던하고 반응형 웹 애플리케이션을 만드는 것에 열정을 가진 개발자입니다. 복잡한 문제를 단순하고 아름다우며 직관적인 디자인으로 해결하는 것을 좋아합니다.</p>
+                <div class="skills">
+                    <span class="skill-tag">HTML5</span>
+                    <span class="skill-tag">CSS3</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">UI/UX</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">주요 프로젝트</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="card-image project-1"></div>
+                    <div class="card-content">
+                        <h3>프로젝트 1</h3>
+                        <p>최신 기술로 제작된 웹 애플리케이션.</p>
+                        <a href="#" class="link">더 보기 &rarr;</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="card-image project-2"></div>
+                    <div class="card-content">
+                        <h3>프로젝트 2</h3>
+                        <p>실시간 데이터 시각화가 포함된 인터랙티브 대시보드.</p>
+                        <a href="#" class="link">더 보기 &rarr;</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="card-image project-3"></div>
+                    <div class="card-content">
+                        <h3>프로젝트 3</h3>
+                        <p>원활한 결제 흐름을 가진 쇼핑몰 플랫폼.</p>
+                        <a href="#" class="link">더 보기 &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="estimate" class="section">
+        <div class="container">
+            <h2 class="section-title">견적서 작성</h2>
+            <div class="estimate-wrapper">
+                <!-- Input Form -->
+                <div class="estimate-form">
+                    <h3>정보 입력</h3>
+                    <div class="form-group">
+                        <label>수신자 (Recipient)</label>
+                        <input type="text" id="est-recipient" placeholder="고객명 또는 회사명">
+                    </div>
+                    <div class="form-group">
+                        <label>날짜 (Date)</label>
+                        <input type="date" id="est-date">
+                    </div>
+                    <div class="form-group">
+                        <label>합계 금액 (Total Price)</label>
+                        <input type="number" id="est-total-price" placeholder="금액 입력">
+                    </div>
+                    <div class="items-container" id="items-container">
+                        <!-- Items will be added here -->
+                    </div>
+                    <button id="add-item-btn" class="secondary-btn">+ 품목 추가</button>
+                    <button id="print-btn" class="cta-button primary-btn">견적서 출력하기</button>
+                </div>
+
+                <!-- Print Preview (Hidden usually, shown in print) -->
+                <div class="estimate-preview" id="estimate-preview">
+                    <div class="paper">
+                        <div class="paper-header">
+                            <h1>견 적 서</h1>
+                            <div class="meta-info">
+                                <div class="recipient-box">
+                                    <span id="preview-recipient">귀하</span>
+                                </div>
+                                <div class="provider-box">
+                                    <table>
+                                        <tr>
+                                            <td rowspan="4" class="stamp-cell">서<br>명<br>또<br>는<br>인</td>
+                                            <th>등록번호</th>
+                                            <td colspan="3">649-66-00188</td>
+                                        </tr>
+                                        <tr>
+                                            <th>상호</th>
+                                            <td>나라</td>
+                                            <th>성명</th>
+                                            <td style="position: relative;">
+                                                홍 재 민 (인)
+                                                <img src="stamp.png" class="official-stamp" alt="도장">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>주소</th>
+                                            <td colspan="3">경기도 남양주시 늘을2로 20, 805호</td>
+                                        </tr>
+                                        <tr>
+                                            <th>업태</th>
+                                            <td>도매 및 소매업</td>
+                                            <th>종목</th>
+                                            <td>전자상거래업</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="price-summary">
+                            <span>합계금액 (일금)</span>
+                            <span id="preview-total-korean">일금 원정</span>
+                            <span id="preview-total-num">(\ 0)</span>
+                        </div>
+
+                        <table class="estimate-table" id="estimate-table">
+                            <thead>
+                                <tr>
+                                    <th>품명</th>
+                                    <th>규격</th>
+                                    <th>수량</th>
+                                    <th>단가</th>
+                                    <th>공급가액</th>
+                                    <th>세액</th>
+                                    <th>비고</th>
+                                </tr>
+                            </thead>
+                            <tbody id="preview-tbody">
+                                <!-- Rows generated by JS -->
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4">합 계</td>
+                                    <td id="preview-supply-total">0</td>
+                                    <td id="preview-tax-total">0</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="paper-footer">
+                            <p>위와 같이 견적합니다.</p>
+                            <p id="preview-date">2024. 12. 15.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="section">
+        <div class="container">
+            <h2 class="section-title">계산기</h2>
+            <div class="calculator-wrapper">
+                <div class="calculator-card">
+                    <input type="text" class="calc-screen" id="calc-screen" disabled value="0">
+                    <div class="calc-keys">
+                        <button class="calc-btn operator" value="+">+</button>
+                        <button class="calc-btn operator" value="-">-</button>
+                        <button class="calc-btn operator" value="*">&times;</button>
+                        <button class="calc-btn operator" value="/">&divide;</button>
+
+                        <button class="calc-btn" value="7">7</button>
+                        <button class="calc-btn" value="8">8</button>
+                        <button class="calc-btn" value="9">9</button>
+
+                        <button class="calc-btn" value="4">4</button>
+                        <button class="calc-btn" value="5">5</button>
+                        <button class="calc-btn" value="6">6</button>
+
+                        <button class="calc-btn" value="1">1</button>
+                        <button class="calc-btn" value="2">2</button>
+                        <button class="calc-btn" value="3">3</button>
+
+                        <button class="calc-btn" value="0">0</button>
+                        <button class="calc-btn decimal" value=".">.</button>
+                        <button class="calc-btn clear" value="all-clear">AC</button>
+                        <button class="calc-btn equal-sign" value="=">=</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="tracking" class="section">
+        <div class="container">
+            <h2 class="section-title">배송 조회</h2>
+            <div class="tracking-wrapper">
+                <div class="tracking-card">
+                    <h3>내 택배 어디쯤 왔을까?</h3>
+                    <p>택배사와 운송장 번호를 입력하여 배송 현황을 조회하세요.</p>
+                    <div class="tracking-form">
+                        <div class="form-group">
+                            <label for="courier-select">택배사 선택</label>
+                            <select id="courier-select">
+                                <option value="cj">CJ대한통운</option>
+                                <option value="epost">우체국택배</option>
+                                <option value="hanjin">한진택배</option>
+                                <option value="lotte">롯데택배</option>
+                                <option value="logen">로젠택배</option>
+                                <option value="kyungdong">경동택배</option>
+                                <option value="chunil">천일택배</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tracking-number">운송장 번호</label>
+                            <input type="number" id="tracking-number" placeholder="- 없이 숫자만 입력">
+                        </div>
+                        <button id="track-btn" class="cta-button primary-btn full-width">조회하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">연락하기</h2>
+            <p class="contact-text">함께 일하고 싶으신가요? 언제든지 연락주세요!</p>
+            <a href="mailto:email@example.com" class="cta-button">메일 보내기</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 나라앵글선반. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
