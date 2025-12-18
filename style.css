@@ -157,6 +157,16 @@ body {
     box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
 }
 
+.primary-btn {
+    background: var(--accent-color) !important;
+    color: var(--bg-color) !important;
+}
+
+.primary-btn:hover {
+    background: transparent !important;
+    color: var(--accent-color) !important;
+}
+
 .hero-visual {
     position: absolute;
     right: -10%;

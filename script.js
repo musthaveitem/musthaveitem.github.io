@@ -14,8 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href === "#") return; // Skip if it's just "#"
+
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const target = document.querySelector(href);
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth' });
                 if (navLinks.classList.contains('active')) {
@@ -186,16 +189,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Totals
-        // If user manually entered total price, we might use that, but usually calculated is better.
-        // Let's stick to calculated for autogen.
+        let grandTotal = totalSupply + totalTax;
 
-        const grandTotal = totalSupply + totalTax;
+        // If manual total price is entered, use it instead (Manual Override)
+        if (totalPriceInput && totalPriceInput.value) {
+            grandTotal = parseInt(totalPriceInput.value) || 0;
+            // Recalculate supply and tax from grand total roughly if needed, 
+            // but for now just update the grand total display for visibility
+        }
 
         previewSupplyTotal.innerText = Number(totalSupply).toLocaleString();
         previewTaxTotal.innerText = Number(totalTax).toLocaleString();
         previewTotalNum.innerText = `(\\ ${Number(grandTotal).toLocaleString()})`;
 
-        // Number to Korean (Simplified)
+        // Number to Korean
         previewTotalKorean.innerText = "일금 " + numberToKorean(grandTotal) + " 원정";
     }
 
@@ -216,13 +223,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (n > 0) {
                 result += (n === 1 && unitIndex > 0 ? '' : numChar(n)) + units[unitIndex];
             }
-            if (unitIndex === 0 && (i === len - 1 || Math.floor((len - i - 2) / 4) !== termIndex)) {
-                // Add term if the block has value
-                // Simplified logic for this demo
-                result += terms[termIndex];
+            if (unitIndex === 0 && (i === len - 1 || parseInt(str.substring(Math.max(0, i - 3), i + 1)) > 0)) {
+                // Add term if the 4-digit block has any non-zero value
+                const blockValue = parseInt(str.substring(Math.max(0, i - 3), i + 1));
+                if (blockValue > 0) {
+                    result += terms[termIndex] + ' ';
+                }
             }
         }
-        return result;
+        return result.trim();
     }
 
     function numChar(n) {
