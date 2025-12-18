@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (hamburger) {
         hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            if (navLinks) navLinks.classList.toggle('active');
             const spans = hamburger.querySelectorAll('span');
             spans.forEach(span => span.classList.toggle('open'));
         });
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const target = document.querySelector(href);
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth' });
-                if (navLinks.classList.contains('active')) {
+                if (navLinks && navLinks.classList.contains('active')) {
                     navLinks.classList.remove('active');
                 }
             }
@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
+        if (!navbar) return;
         if (window.scrollY > 50) {
             navbar.style.background = 'rgba(15, 23, 42, 0.95)';
             navbar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
@@ -60,19 +61,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Google Sign-In (Existing) ---
-    window.onload = function () {
+    function initGoogleSignIn() {
         if (typeof google !== 'undefined' && google.accounts) {
             google.accounts.id.initialize({
                 client_id: "YOUR_GOOGLE_CLIENT_ID_HERE",
                 callback: handleCredentialResponse
             });
-            google.accounts.id.renderButton(
-                document.getElementById("g_id_signin"),
-                { theme: "outline", size: "large" }
-            );
+            const btn = document.getElementById("g_id_signin");
+            if (btn) {
+                google.accounts.id.renderButton(
+                    btn,
+                    { theme: "outline", size: "large" }
+                );
+            }
             // google.accounts.id.prompt(); 
         }
     }
+    window.addEventListener('load', initGoogleSignIn);
 
     function handleCredentialResponse(response) {
         console.log("Encoded JWT ID token: " + response.credential);
@@ -200,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         previewSupplyTotal.innerText = Number(totalSupply).toLocaleString();
         previewTaxTotal.innerText = Number(totalTax).toLocaleString();
-        previewTotalNum.innerText = `(\\ ${Number(grandTotal).toLocaleString()})`;
+        previewTotalNum.innerText = `(₩ ${Number(grandTotal).toLocaleString()})`;
 
         // Number to Korean
         previewTotalKorean.innerText = "일금 " + numberToKorean(grandTotal) + " 원정";
@@ -355,8 +360,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (trackBtn) {
         trackBtn.addEventListener('click', () => {
-            const courier = courierSelect.value;
-            const trackingNumber = trackingNumberInput.value.trim();
+            const courier = courierSelect ? courierSelect.value : '';
+            const trackingNumber = trackingNumberInput ? String(trackingNumberInput.value).trim() : '';
 
             if (!trackingNumber) {
                 alert('운송장 번호를 입력해주세요.');

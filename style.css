@@ -121,11 +121,11 @@ body {
     display: block;
 }
 
-.name {
-    font-size: 4rem;
+..name {
+    font-size: clamp(2.6rem, 6vw, 4rem);
     font-weight: 700;
-    margin-bottom: 1rem;
-    line-height: 1.1;
+    margin-bottom: 0.8rem;
+    line-height: 1.05;
     background: linear-gradient(45deg, #e2e8f0, #f97316);
     background-clip: text;
     -webkit-background-clip: text;
@@ -728,7 +728,7 @@ footer {
     }
 
     .name {
-        font-size: 2.5rem;
+        font-size: clamp(2.2rem, 6vw, 2.6rem);
     }
 
     .section {
